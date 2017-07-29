@@ -1,3 +1,22 @@
+'use strict'
+const cursor = document.querySelector('#cursor');
+
+cursor.addEventListener('click', function(e){
+  const fusedElementId = e.detail.intersectedEl.id;
+  if(!fusedElementId.match(/door[0-9]+/)){
+    return;
+  }
+  console.log('On door focus end: '+fusedElementId.replace('door', ''));
+})
+
+cursor.addEventListener('fusing', function(e){
+  const fusedElementId = e.detail.intersectedEl.id;
+  if(!fusedElementId.match(/door[0-9]+/)){
+    return;
+  }
+  console.log('On door hover: '+fusedElementId.replace('door', ''));
+})
+
 const imageFormat = '.png'
 
 function createRandomizerWithoutRepetitionsInRange(begin, end){
