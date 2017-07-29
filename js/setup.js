@@ -17,8 +17,6 @@ cursor.addEventListener('fusing', function(e){
   console.log('On door hover: '+fusedElementId.replace('door', ''));
 })
 
-const imageFormat = '.png'
-
 function createRandomizerWithoutRepetitionsInRange(begin, end){
   if(begin>end){
     const tmp = begin;
@@ -51,9 +49,35 @@ function setupRuns(runsImageBasePath, numberOfRuns) {
 
   const getRandomWithoutRepetitionsInRange = createRandomizerWithoutRepetitionsInRange(0, numberOfRuns);
 
+  const imageFormat = '.png'
+
   Array.from(runs).forEach( function(run){
     const index=getRandomWithoutRepetitionsInRange()
     run.setAttribute('src', runsImageBasePath+index+imageFormat)
   })
 
 }
+
+const timerNode = document.querySelector('#timer');
+
+function setupTimer(timeToCompleteLevel){
+  let timeLeft=timeToCompleteLevel;
+
+  const getTimerValue = function(value){
+    return 'Time left to drown: 00:' + ((value<10)?'0'+value:value);
+  }
+
+  timerNode.setAttribute('value', getTimerValue(timeLeft));
+  const intervalId = setInterval(function(){
+    timeLeft--;
+    timerNode.setAttribute('value', getTimerValue(timeLeft));
+    if(timeLeft === 0){
+      clearInterval(intervalId);
+      timerNode.emit('on-time-end');
+    }
+  }, 1000);
+}
+
+timerNode.addEventListener('on-time-end', function(){
+  timerNode.setAttribute('value', 'you have drown !')
+})

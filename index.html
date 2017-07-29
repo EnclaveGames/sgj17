@@ -30,7 +30,7 @@
     </a-assets>
 
     <a-box color="#0095DD" rotation="0 0 0" position="0 4.5 -6" width="4" depth="0.1" height="1">
-      <a-text id="timer" color="#EEE" position="0 0.15 0.1" wrap-count="20" font="mozillavr" value="Flood Esc Ape" align="center" width="4"></a-text>
+      <a-text id="timer" color="#EEE" position="0 0.15 0.1" font="mozillavr" value="Time left to drown: 00:10" align="center" width="4"></a-text>
     </a-box>
 
     <a-box id="wall1" src="img/wall-left.jpg" position="-8 2.5 0" width="16" depth="0.1" height="5" rotation="0 90 0"></a-box>
@@ -62,7 +62,7 @@
   <script>
     var camera = document.querySelector('a-camera');
     setupRuns('./img/example-run', 3)
-
+    setupTimer(`10`);
     function render() {
       requestAnimationFrame(render);
     }
