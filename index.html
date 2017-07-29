@@ -18,21 +18,24 @@
     </a-box>
 
     <a-box id="wall1" color="#0095DD" position="-8 2.5 0" width="16" depth="0.1" height="5" rotation="0 90 0"></a-box>
-    <a-box id="door1" color="#00559D" position="-7.9 2 0" width="1.5" depth="0.1" height="4" rotation="0 90 0"></a-box>
+    <a-box id="door1" class="door" color="#00559D" position="-7.9 2 0" width="1.5" depth="0.1" height="4" rotation="0 90 0"></a-box>
 
     <a-box id="wall2" color="#0095DD" position="0 2.5 -8" width="16" depth="0.1" height="5"></a-box>
-    <a-box id="door2" color="#00559D" position="0 2 -7.9" width="1.5" depth="0.1" height="4"></a-box>
+    <a-box id="door2" class="door" color="#00559D" position="0 2 -7.9" width="1.5" depth="0.1" height="4"></a-box>
 
     <a-box id="wall3" color="#0095DD" position="8 2.5 0" width="16" depth="0.1" height="5" rotation="0 -90 0"></a-box>
-    <a-box id="door3" color="#00559D" position="7.9 2 0" width="1.5" depth="0.1" height="4" rotation="0 -90 0"></a-box>
+    <a-box id="door3" class="door" color="#00559D" position="7.9 2 0" width="1.5" depth="0.1" height="4" rotation="0 -90 0"></a-box>
 
-    <a-box id="floor" color="#00559D" position="0 0 0" width="16" depth="0.1" height="16" rotation="90 0 0"></a-box>
+    <a-box id="floor"  color="#00559D" position="0 0 0" width="16" depth="0.1" height="16" rotation="90 0 0"></a-box>
 
     <a-box id="roof" color="#00D5FD" position="0 5 0" width="16" depth="0.1" height="16" rotation="90 0 0"></a-box>
 
   </a-scene>
+  <script src="./js/setup.js" charset="utf-8"></script>
   <script>
     var camera = document.querySelector('a-camera');
+    setupRuns('./img/example-run', 3)
+
     function render() {
       requestAnimationFrame(render);
     }
