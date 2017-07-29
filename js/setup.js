@@ -64,7 +64,7 @@ function setupTimer(timeToCompleteLevel){
   let timeLeft=timeToCompleteLevel;
 
   const getTimerValue = function(value){
-    return 'Time left to drown: 00:' + ((value<10)?'0'+value:value);
+    return '0:' + ((value<10)?'0'+value:value);
   }
 
   timerNode.setAttribute('value', getTimerValue(timeLeft));
@@ -79,5 +79,5 @@ function setupTimer(timeToCompleteLevel){
 }
 
 timerNode.addEventListener('on-time-end', function(){
-  timerNode.setAttribute('value', 'you have drown !')
+  timerNode.setAttribute('value', 'Drowned!')
 })
