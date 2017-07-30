@@ -5,35 +5,11 @@ const getRandomBasePathWithoutRepetitions = createRandomizerWithoutRepetitions(i
 const overlay = document.querySelector('#overlay');
 const cursor = document.querySelector('#cursor');
 const runs = document.querySelectorAll('a-box.symbol');
-const doors = document.querySelectorAll('a-box.door');
-
-Array.from(doors).forEach(function(door){
-  door.addEventListener('click',function(e){
-
-      const fusedElementId = e.target.id;
-
-      const elemIndex = fusedElementId.replace('door', '');
-      if(elemIndex==currentCorrectSymbolIndex){
-        console.log('win');
-        handleNextScene();
-      } else {
-        console.log('failure');
-        handleFailure();
-      }
-  })
-
-  door.addEventListener('fusing', function(e){
-    const fusedElement = e.target;
-    //make it on child elem or just on #symbolN
-    console.log('focus-start');
-    fusedElement.emit('on-focus-start');
-  })
-
-})
-
-Array.from(runs).forEach(function(door){
-  door.addEventListener('click',function(e){
-      const fusedElementId = e.target.id;
+let intervalId;
+console.log(runs);
+Array.from(runs).forEach(function(run){
+  run.addEventListener('click',function(e){
+      const fusedElementId = e.target.getAttribute('id');
 
       const elemIndex = fusedElementId.replace('symbol', '');
       if(elemIndex==currentCorrectSymbolIndex){
@@ -45,8 +21,9 @@ Array.from(runs).forEach(function(door){
       }
   })
 
-  door.addEventListener('fusing', function(e){
+  run.addEventListener('fusing', function(e){
     const fusedElement = e.target;
+    console.log(fusedElement);
 
     fusedElement.emit('on-focus-start');
   })
@@ -94,7 +71,6 @@ return function(){
 }
 
 function setupRuns(runsImageBasePath, numberOfRuns) {
-  console.log('setup runs');
   if(!runs.length || runs.length != numberOfRuns ){
     throw new Error('Incorrect number of a-run components. Expected numer: '+
     numberOfRuns+', Actual number: '+runs.length)
@@ -128,7 +104,7 @@ function setupTimer(timeToCompleteLevel){
   }
 
   timerNode.setAttribute('value', getTimerValue(timeLeft));
-  const intervalId = setInterval(function(){
+  intervalId = setInterval(function(){
     timeLeft--;
     timerNode.setAttribute('value', getTimerValue(timeLeft));
     if(timeLeft === 0){
@@ -140,11 +116,12 @@ function setupTimer(timeToCompleteLevel){
 
 function handleNextScene(){
   overlay.emit('light-off');
+  clearInterval(intervalId)
   setupScene();
 }
 
 function handleFailure(){
-//  alert('failure');
+  clearInterval(intervalId)
 }
 
 setupScene();

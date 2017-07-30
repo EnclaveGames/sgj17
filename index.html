@@ -35,13 +35,18 @@
 
     <a-box id="wall1" material="src:img/wall.jpg; repeat: 4 4;" position="-8 2.5 0" width="16" depth="0.1" height="5" rotation="0 90 0"></a-box>
     <a-box id="door1" class="door" src="img/door.jpg" position="-7.9 2 0" width="3" depth="0.1" height="4" rotation="0 90 0">
-      <a-box class="symbol symbol1" id="symbol1" position="0 0.5 1" width="1.5" depth="0.1" height="0.8"></a-box>
+      <a-box class="symbol symbol1" id="symbol1" position="0 0.5 1" width="1.5" depth="0.1" height="0.8">
+        <a-animation begin="on-focus-start" attribute="scale" from="1 1 1" to="1.5 1.5 1.5" dur="2500"></a-animation>
+      </a-box>
     </a-box>
     <a-entity class="light" id="light1" mixin="light" position="-7 4.5 0"></a-entity>
 
     <a-box id="wall2" material="src:img/wall.jpg; repeat: 4 4;" position="0 2.5 -8" width="16" depth="0.1" height="5"></a-box>
     <a-box id="door2" class="door" src="img/door.jpg" position="0 2 -7.9" width="3" depth="0.1" height="4">
-      <a-box class="symbol symbol2" id="symbol2" position="0 0.5 1" width="1.5" depth="0.1" height="0.8"></a-box>
+      <a-box class="symbol symbol2" id="symbol2" position="0 0.5 1" width="1.5" depth="0.1" height="0.8">
+        <a-animation begin="on-focus-start" attribute="scale" from="1 1 1" to="1.5 1.5 1.5"  dur="2500"></a-animation>
+
+      </a-box>
     </a-box>
     <a-entity class="light" id="light2" mixin="light" position="0 4.5 -7"></a-entity>
 
@@ -58,7 +63,9 @@
 
     <a-box id="wall3" material="src:img/wall.jpg; repeat: 4 4;" position="8 2.5 0" width="16" depth="0.1" height="5" rotation="0 -90 0"></a-box>
     <a-box id="door3" class="door" src="img/door.jpg" position="7.9 2 0" width="3" depth="0.1" height="4" rotation="0 -90 0">
-      <a-box class="symbol symbol3" id="symbol3" position="0 0.5 1" width="1.5" depth="0.1" height="0.8"></a-box>
+      <a-box class="symbol symbol3" id="symbol3" position="0 0.5 1" width="1.5" depth="0.1" height="0.8">
+        <a-animation begin="on-focus-start" attribute="scale" from="1 1 1" to="1.5 1.5 1.5" dur="2500"></a-animation>
+      </a-box>
     </a-box>
     <a-entity class="light" id="light3" mixin="light" position="7 4.5 0"></a-entity>
 
@@ -85,7 +92,7 @@
         requestAnimationFrame(render);
     }
     render();
-    setup(['./img/symbol-s1-v','./img/symbol-s2-v','./img/symbol-s3-v','./img/symbol-s4-v','./img/symbol-s5-v',], 3, 10);
+    setup(['./img/symbol-s1-v','./img/symbol-s2-v','./img/symbol-s3-v','./img/symbol-s4-v','./img/symbol-s5-v',], 3, 33);
   })
   </script>
 </body>
