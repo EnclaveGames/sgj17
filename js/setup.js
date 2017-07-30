@@ -6,6 +6,8 @@ const overlay = document.querySelector('#overlay');
 const cursor = document.querySelector('#cursor');
 const runs = document.querySelectorAll('a-box.symbol');
 let intervalId;
+const electrictyDeathNode = document.querySelector('#electricity-death');
+const drownDeathNode = document.querySelector('#drown-death');
 
 Array.from(runs).forEach(function(run){
   run.addEventListener('click',function(e){
@@ -16,7 +18,7 @@ Array.from(runs).forEach(function(run){
         console.log('win');
         handleNextScene();
       } else {
-        console.log('failure');
+        electrictyDeathNode.setAttribute('opacity', 1);
         handleFailure();
       }
   })
@@ -31,11 +33,6 @@ Array.from(runs).forEach(function(run){
 
 
 const timerNode = document.querySelector('#timer');
-
-timerNode.addEventListener('on-time-end', function(){
-  timerNode.setAttribute('value', 'Drowned!')
-  handleFailure();
-})
 
 const sceneNode = document.querySelector('a-scene');
 
@@ -107,7 +104,7 @@ function setupTimer(timeToCompleteLevel){
     timerNode.setAttribute('value', getTimerValue(timeLeft));
     if(timeLeft === 0){
       clearInterval(intervalId);
-      timerNode.emit('on-time-end');
+      drownDeathNode.setAttribute('opacity', 1);
     }
   }, 1000);
 }
@@ -120,6 +117,7 @@ function handleNextScene(){
 
 function handleFailure(){
   clearInterval(intervalId)
+
 }
 
 setupScene();
