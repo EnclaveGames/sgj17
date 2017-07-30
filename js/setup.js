@@ -6,7 +6,7 @@ const overlay = document.querySelector('#overlay');
 const cursor = document.querySelector('#cursor');
 const runs = document.querySelectorAll('a-box.symbol');
 let intervalId;
-console.log(runs);
+
 Array.from(runs).forEach(function(run){
   run.addEventListener('click',function(e){
       const fusedElementId = e.target.getAttribute('id');
@@ -23,7 +23,6 @@ Array.from(runs).forEach(function(run){
 
   run.addEventListener('fusing', function(e){
     const fusedElement = e.target;
-    console.log(fusedElement);
 
     fusedElement.emit('on-focus-start');
   })
@@ -51,9 +50,8 @@ function setupScene(){
       sceneNode.emit('end-of-scenes');
       return;
     }
-
+    console.log('emit light-on');
     overlay.emit('light-on');
-    console.log(overlay.children, 'emitted');
 
     setupRuns(currentSceneImageBasePath, numberOfRuns);
     setupTimer(timeToEndScene);

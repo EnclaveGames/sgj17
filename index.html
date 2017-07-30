@@ -17,7 +17,11 @@
           position="0 0 -1"
           geometry="primitive: ring; radiusInner: 0.04; radiusOuter: 0.06"
           material="color: #fff; shader: flat">
-</a-entity>
+      </a-entity>
+      <a-box id="overlay" color="#000" position="0 0.5 0.5" width="16" height="5" depth="1">
+        <a-animation begin="light-on" attribute="opacity" dur="2000" delay="2000" easing="linear" from="1" to="0"></a-animation>
+        <a-animation begin="light-off" attribute="opacity" dur="1000" easing="linear" from="0" to="1"></a-animation>
+      </a-box>
     </a-camera>
 
     <a-assets>
@@ -78,11 +82,6 @@
     </a-box> -->
 
     <a-box id="roof" material="src:img/ceiling.jpg; repeat: 5 5;" position="0 5 0" width="16" depth="0.1" height="16" rotation="270 -90 0"></a-box>
-
-    <a-box id="overlay" color="#000" position="0 2.5 -1" width="16" height="5" depth="1" rotation="0 15 0">
-      <a-animation begin="light-on" attribute="opacity" dur="2000" delay="2000" easing="linear" from="1" to="0"></a-animation>
-      <a-animation begin="light-off" attribute="opacity" dur="1000" easing="linear" from="0" to="1"></a-animation>
-    </a-box>
 
   </a-scene>
   <script src="./js/setup.js" charset="utf-8"></script>
