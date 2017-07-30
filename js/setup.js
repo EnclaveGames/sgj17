@@ -8,6 +8,8 @@ const runs = document.querySelectorAll('a-box.symbol');
 let intervalId;
 const electrictyDeathNode = document.querySelector('#electricity-death');
 const drownDeathNode = document.querySelector('#drown-death');
+const camera=document.querySelector('a-camera');
+const win=document.querySelector('#win');
 
 Array.from(runs).forEach(function(run){
   run.addEventListener('click',function(e){
@@ -18,6 +20,7 @@ Array.from(runs).forEach(function(run){
         console.log('win');
         handleNextScene();
       } else {
+        camera.setAttribute('rotation', '-5 0 0');
         electrictyDeathNode.setAttribute('opacity', 1);
         handleFailure();
       }
@@ -36,7 +39,10 @@ const timerNode = document.querySelector('#timer');
 
 const sceneNode = document.querySelector('a-scene');
 
-sceneNode.addEventListener('end-of-scenes', function(){alert('You won');});
+sceneNode.addEventListener('end-of-scenes', function(){
+  camera.setAttribute('rotation', '-5 0 0');
+  win.setAttribute('opacity', 1);
+});
 
 
 
@@ -47,7 +53,7 @@ function setupScene(){
       sceneNode.emit('end-of-scenes');
       return;
     }
-    console.log('emit light-on');
+    camera.setAttribute('rotation', '-5 0 0');
     overlay.emit('light-on');
 
     setupRuns(currentSceneImageBasePath, numberOfRuns);
@@ -104,6 +110,7 @@ function setupTimer(timeToCompleteLevel){
     timerNode.setAttribute('value', getTimerValue(timeLeft));
     if(timeLeft === 0){
       clearInterval(intervalId);
+      camera.setAttribute('rotation', '-5 0 0');
       drownDeathNode.setAttribute('opacity', 1);
     }
   }, 1000);
