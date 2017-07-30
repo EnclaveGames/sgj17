@@ -94,6 +94,7 @@ return function(){
 }
 
 function setupRuns(runsImageBasePath, numberOfRuns) {
+  console.log('setup runs');
   if(!runs.length || runs.length != numberOfRuns ){
     throw new Error('Incorrect number of a-run components. Expected numer: '+
     numberOfRuns+', Actual number: '+runs.length)
