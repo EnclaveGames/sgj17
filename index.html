@@ -11,7 +11,7 @@
     <a-plane position="0 0 0" rotation="-90 0 0" width="16" height="16" color="#999"></a-plane>
     <a-sky color="#DDDDDD"></a-sky>
     <!-- <a-light type="directional" color="#FFF" intensity="0.5" position="-1 1 2"></a-light> -->
-    <a-light type="ambient" color="#FFF" position="0 0 0" intensity="0.15"></a-light>
+    <a-light type="ambient" color="#FFF" position="0 0 0" intensity="0.4"></a-light>
     <a-camera position="0 1 0" rotation="0 15 0">
       <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 2500"
           position="0 0 -1"
@@ -29,18 +29,20 @@
                material="color: red"></a-mixin>
     </a-assets>
 
-    <a-box color="#0095DD" rotation="0 0 0" position="0 4.5 -6" width="3" depth="0.1" height="1">
+    <a-box material="src:img/ceiling.jpg; repeat: 2 0.75;" rotation="0 0 0" position="0 4.5 -6" width="3" depth="0.1" height="1">
       <a-text id="timer" color="#EEE" position="0 0.25 0.1" font="mozillavr" value="0:10" align="center" width="12"></a-text>
     </a-box>
 
-    <a-box id="wall1" src="img/bg-wall-left.jpg" position="-8 2.5 0" width="16" depth="0.1" height="5" rotation="0 90 0"></a-box>
-    <a-box id="door1" class="door" src="img/door.jpg" position="-7.9 2 0" width="3" depth="0.1" height="4" rotation="0 90 0"></a-box>
-    <a-box class="symbol symbol1" id="symbol_1_1" src="img/symbol-s1-v1.png" position="-7.8 2.8 0" width="2/3" depth="0.1" height="1" rotation="0 90 0"></a-box>
+    <a-box id="wall1" material="src:img/wall.jpg; repeat: 4 4;" position="-8 2.5 0" width="16" depth="0.1" height="5" rotation="0 90 0"></a-box>
+    <a-box id="door1" class="door" src="img/door.jpg" position="-7.9 2 0" width="3" depth="0.1" height="4" rotation="0 90 0">
+      <a-box class="symbol symbol1" id="symbol1" position="-7.8 2.8 0" width="2/3" depth="0.1" height="1" rotation="0 90 0"></a-box>
+    </a-box>
     <a-entity class="light" id="light1" mixin="light" position="-7 4.5 0"></a-entity>
 
-    <a-box id="wall2" src="img/bg-wall-front.jpg" position="0 2.5 -8" width="16" depth="0.1" height="5"></a-box>
-    <a-box id="door2" class="doorz" src="img/door.jpg" position="0 2 -7.9" width="3" depth="0.1" height="4"></a-box>
-    <a-box class="symbol symbol2" id="symbol_1_2" src="img/symbol-s1-v2.png" position="0 2.8 -7.8" width="2/3" depth="0.1" height="1"></a-box>
+    <a-box id="wall2" material="src:img/wall.jpg; repeat: 4 4;" position="0 2.5 -8" width="16" depth="0.1" height="5"></a-box>
+    <a-box id="door2" class="door" src="img/door.jpg" position="0 2 -7.9" width="3" depth="0.1" height="4">
+      <a-box class="symbol symbol2" id="symbol2" position="0 2.8 -7.8" width="2/3" depth="0.1" height="1"></a-box>
+    </a-box>
     <a-entity class="light" id="light2" mixin="light" position="0 4.5 -7"></a-entity>
 
     <a-box position="7 1 -7.9" src="img/box.png" width="1" height="1" depth="0.01"></a-box>
@@ -51,12 +53,13 @@
     <a-box position="7.9 3 0" src="img/panel.png" width="1" height="0.2" depth="0.1" rotation="0 -90 0"></a-box>
     <a-box position="-7.9 1 -3" src="img/vent-box.png" width="1" height="1" depth="0.1" rotation="0 90 0"></a-box>
 
-    <a-box id="wall3" src="img/bg-wall-right.jpg" position="8 2.5 0" width="16" depth="0.1" height="5" rotation="0 -90 0"></a-box>
-    <a-box id="door3" class="door" src="img/door.jpg" position="7.9 2 0" width="3" depth="0.1" height="4" rotation="0 -90 0"></a-box>
-    <a-box class="symbol symbol3" id="symbol_1_3" src="img/symbol-s1-v3.png" position="7.8 2.8 0" width="2/3" depth="0.1" height="1" rotation="0 -90 0"></a-box>
+    <a-box id="wall3" material="src:img/wall.jpg; repeat: 4 4;" position="8 2.5 0" width="16" depth="0.1" height="5" rotation="0 -90 0"></a-box>
+    <a-box id="door3" class="door" src="img/door.jpg" position="7.9 2 0" width="3" depth="0.1" height="4" rotation="0 -90 0">
+      <a-box class="symbol symbol3" id="symbol3" position="7.8 2.8 0" width="2/3" depth="0.1" height="1" rotation="0 -90 0"></a-box>
+    </a-box>
     <a-entity class="light" id="light3" mixin="light" position="7 4.5 0"></a-entity>
 
-    <a-box id="wall4" src="img/bg-wall-front.jpg" position="0 2.5 8" width="16" depth="0.1" height="5"></a-box>
+    <a-box id="wall4" material="src:img/wall.jpg; repeat: 4 4;" position="0 2.5 8" width="16" depth="0.1" height="5"></a-box>
 
     <a-box id="floor" material="src:img/floor.jpg; repeat: 10 10;" position="0 0 0" width="16" depth="0.1" height="16" rotation="90 -90 0"></a-box>
 
