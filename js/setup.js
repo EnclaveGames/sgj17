@@ -1,4 +1,8 @@
+function setup(imagesBasePaths, numberOfRuns, timeToEndScene){
 'use strict'
+let currentCorrectSymbolIndex;
+const getRandomBasePathWithoutRepetitions = createRandomizerWithoutRepetitions(imagesBasePaths);
+const overlay = document.querySelector('#overlay');
 const cursor = document.querySelector('#cursor');
 
 cursor.addEventListener('click', function(e){
@@ -6,36 +10,61 @@ cursor.addEventListener('click', function(e){
   if(!fusedElementId.match(/door[0-9]+/)){
     return;
   }
-  console.log('On door focus end: '+fusedElementId.replace('door', ''));
+  const elemIndex = fusedElementId.replace('door', '');
+  if(elemIndex==currentCorrectSymbolIndex){
+    console.log('win');
+    handleNextScene();
+  } else {
+    console.log('failure');
+    handleFailure();
+  }
 })
 
 cursor.addEventListener('fusing', function(e){
-  const fusedElementId = e.detail.intersectedEl.id;
-  if(!fusedElementId.match(/door[0-9]+/)){
+  const fusedElement = e.detail.intersectedEl;
+  if(!fusedElement.id.match(/door[0-9]+/)){
     return;
   }
-  console.log('On door hover: '+fusedElementId.replace('door', ''));
+  //make it on child elem or just on #symbolN
+  fusedElement.emit('on-focus-start');
 })
 
-function createRandomizerWithoutRepetitionsInRange(begin, end){
-  if(begin>end){
-    const tmp = begin;
-    begin= end;
-    end = tmp;
-  }
+const timerNode = document.querySelector('#timer');
 
-  const numbers = [];
-  for(let i=begin; i<end; i++){
-    numbers.push(i);
-  }
+timerNode.addEventListener('on-time-end', function(){
+  timerNode.setAttribute('value', 'you have drown !')
+  handleFailure();
+})
 
-  return function(){
-    const numberIndex= Math.floor(Math.random()*numbers.length);
-    const number = numbers[numberIndex];
+const sceneNode = document.querySelector('a-scene');
 
-    numbers.splice(numberIndex ,1);
+sceneNode.addEventListener('end-of-scenes', function(){alert('You won');});
 
-    return number;
+
+
+function setupScene(){
+    const currentSceneImageBasePath = getRandomBasePathWithoutRepetitions()
+
+    if(!currentSceneImageBasePath){
+      sceneNode.emit('end-of-scenes');
+      return;
+    }
+
+    overlay.emit('light-on');
+    console.log(overlay.children, 'emitted');
+
+    setupRuns(currentSceneImageBasePath, numberOfRuns);
+    setupTimer(timeToEndScene);
+}
+
+function createRandomizerWithoutRepetitions(arr){
+return function(){
+    const index= Math.floor(Math.random()*arr.length);
+    const element = arr[index];
+
+    arr.splice(index ,1);
+
+    return element;
   }
 }
 
@@ -47,18 +76,25 @@ function setupRuns(runsImageBasePath, numberOfRuns) {
     numberOfRuns+', Actual number: '+runs.length)
   }
 
-  const getRandomWithoutRepetitionsInRange = createRandomizerWithoutRepetitionsInRange(0, numberOfRuns);
-
   const imageFormat = '.png'
 
-  Array.from(runs).forEach( function(run){
-    const index=getRandomWithoutRepetitionsInRange()
+  const imagesIndecies = [];
+  for(let i = 0; i<numberOfRuns; i++){
+    imagesIndecies.push(i)
+  }
+
+  const getRandomWithoutRepetitions= createRandomizerWithoutRepetitions(imagesIndecies);
+
+  Array.from(runs).forEach( function(run, runIndex){
+    const index=getRandomWithoutRepetitions()
+    if(index===0){
+      currentCorrectSymbolIndex = runIndex+1;
+      console.log('Correct '+runIndex);
+    }
     run.setAttribute('src', runsImageBasePath+index+imageFormat)
   })
 
 }
-
-const timerNode = document.querySelector('#timer');
 
 function setupTimer(timeToCompleteLevel){
   let timeLeft=timeToCompleteLevel;
@@ -78,6 +114,15 @@ function setupTimer(timeToCompleteLevel){
   }, 1000);
 }
 
-timerNode.addEventListener('on-time-end', function(){
-  timerNode.setAttribute('value', 'Drowned!')
-})
+function handleNextScene(){
+  overlay.emit('light-off');
+  setupScene();
+}
+
+function handleFailure(){
+//  alert('failure');
+}
+
+setupScene();
+
+}
