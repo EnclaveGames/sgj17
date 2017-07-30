@@ -10,6 +10,7 @@ const electrictyDeathNode = document.querySelector('#electricity-death');
 const drownDeathNode = document.querySelector('#drown-death');
 const camera=document.querySelector('a-camera');
 const win=document.querySelector('#win');
+// const water = document.querySelector('#water');
 
 Array.from(runs).forEach(function(run){
   run.addEventListener('click',function(e){
@@ -22,6 +23,10 @@ Array.from(runs).forEach(function(run){
       } else {
         camera.setAttribute('rotation', '-5 0 0');
         electrictyDeathNode.setAttribute('opacity', 1);
+        // water.emit('dupa')
+
+        // water.setAttribute('position', '0 -0.1 0');
+
         handleFailure();
       }
   })
@@ -41,6 +46,9 @@ const sceneNode = document.querySelector('a-scene');
 
 sceneNode.addEventListener('end-of-scenes', function(){
   camera.setAttribute('rotation', '-5 0 0');
+  // water.emit('dupa')
+  // water.setAttribute('position', '0 -0.1 0');
+
   win.setAttribute('opacity', 1);
 });
 
@@ -54,6 +62,9 @@ function setupScene(){
       return;
     }
     camera.setAttribute('rotation', '-5 0 0');
+    // water.setAttribute('position', '0 -0.1 0');
+    // water.emit('dupa')
+
     overlay.emit('light-on');
 
     setupRuns(currentSceneImageBasePath, numberOfRuns);
@@ -112,6 +123,7 @@ function setupTimer(timeToCompleteLevel){
       clearInterval(intervalId);
       camera.setAttribute('rotation', '-5 0 0');
       drownDeathNode.setAttribute('opacity', 1);
+      // water.setAttribute('position', '0 -0.1 0');
     }
   }, 1000);
 }
