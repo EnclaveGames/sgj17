@@ -57,7 +57,7 @@ Array.from(runs).forEach(function(door){
 const timerNode = document.querySelector('#timer');
 
 timerNode.addEventListener('on-time-end', function(){
-  timerNode.setAttribute('value', 'you have drown !')
+  timerNode.setAttribute('value', 'Drowned!')
   handleFailure();
 })
 
