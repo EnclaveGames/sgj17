@@ -4,30 +4,55 @@ let currentCorrectSymbolIndex;
 const getRandomBasePathWithoutRepetitions = createRandomizerWithoutRepetitions(imagesBasePaths);
 const overlay = document.querySelector('#overlay');
 const cursor = document.querySelector('#cursor');
+const runs = document.querySelectorAll('a-box.symbol');
+const doors = document.querySelectorAll('a-box.door');
 
-cursor.addEventListener('click', function(e){
-  const fusedElementId = e.detail.intersectedEl.id;
-  if(!fusedElementId.match(/door[0-9]+/)){
-    return;
-  }
-  const elemIndex = fusedElementId.replace('door', '');
-  if(elemIndex==currentCorrectSymbolIndex){
-    console.log('win');
-    handleNextScene();
-  } else {
-    console.log('failure');
-    handleFailure();
-  }
+Array.from(doors).forEach(function(door){
+  door.addEventListener('click',function(e){
+
+      const fusedElementId = e.target.id;
+
+      const elemIndex = fusedElementId.replace('door', '');
+      if(elemIndex==currentCorrectSymbolIndex){
+        console.log('win');
+        handleNextScene();
+      } else {
+        console.log('failure');
+        handleFailure();
+      }
+  })
+
+  door.addEventListener('fusing', function(e){
+    const fusedElement = e.target;
+    //make it on child elem or just on #symbolN
+    console.log('focus-start');
+    fusedElement.emit('on-focus-start');
+  })
+
 })
 
-cursor.addEventListener('fusing', function(e){
-  const fusedElement = e.detail.intersectedEl;
-  if(!fusedElement.id.match(/door[0-9]+/)){
-    return;
-  }
-  //make it on child elem or just on #symbolN
-  fusedElement.emit('on-focus-start');
+Array.from(runs).forEach(function(door){
+  door.addEventListener('click',function(e){
+      const fusedElementId = e.target.id;
+
+      const elemIndex = fusedElementId.replace('symbol', '');
+      if(elemIndex==currentCorrectSymbolIndex){
+        console.log('win');
+        handleNextScene();
+      } else {
+        console.log('failure');
+        handleFailure();
+      }
+  })
+
+  door.addEventListener('fusing', function(e){
+    const fusedElement = e.target;
+
+    fusedElement.emit('on-focus-start');
+  })
+
 })
+
 
 const timerNode = document.querySelector('#timer');
 
@@ -69,8 +94,6 @@ return function(){
 }
 
 function setupRuns(runsImageBasePath, numberOfRuns) {
-  const runs = document.querySelectorAll('a-box.door');
-
   if(!runs.length || runs.length != numberOfRuns ){
     throw new Error('Incorrect number of a-run components. Expected numer: '+
     numberOfRuns+', Actual number: '+runs.length)
